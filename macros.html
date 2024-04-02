@@ -1,0 +1,39 @@
+﻿{%- macro create_checkbox(name, string, list) %}
+{%- set words = string.split() %}
+<ul type = none> {%- for word in words %}
+<li><input type="checkbox" name="{{ name }}" {%- if loop.index in list %} checked {%- endif %}>{{ word }}</li>
+{%- endfor %}</ul>
+{%- endmacro %}
+
+{%- macro cards(book_list, n) %}
+{%- set total_books = book_list | length %}
+{%- if n < total_books and n > 0 %}
+{%- set first_part = book_list[:n // 2] %}
+{%- set second_part = book_list[n // 2:] %}
+    {%- for book in first_part %}
+        <div>
+            <p>Title: {{ book.title }}</p>
+            <p>Author: {{ book.author }}</p>
+            <p>Price: {{ book.price }}</p>
+        </div>
+    {%- endfor %}
+    <div>
+        <p>...</p>
+    </div>
+    {%- for book in second_part %}
+        <div>
+            <p>Title: {{ book.title }}</p>
+            <p>Author: {{ book.author }}</p>
+            <p>Price: {{ book.price }}</p>
+        </div>
+    {%- endfor %}
+{%- else %}
+    {%- for book in book_list %}
+        <div>
+            <p>Title: {{ book.title }}</p>
+            <p>Author: {{ book.author }}</p>
+            <p>Price: {{ book.price }}</p>
+        </div>
+    {%- endfor %}
+{%- endif %}
+{%- endmacro %}
